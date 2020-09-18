@@ -328,7 +328,7 @@ export default class VideoRecorder extends Component {
     const blobCount = this.recordedBlobs.length
     if (blobCount > dataCheckInterval && blobCount % dataCheckInterval === 0) {
       const blob = new window.Blob(this.recordedBlobs, {
-        type: 'video/mp4'
+        type: 'video/mp4;codecs=h264'
       })
       if (blob.size <= 0) return this.handleDataIssue(event)
     }
@@ -491,7 +491,7 @@ export default class VideoRecorder extends Component {
       this.recordedBlobs.length === 1
         ? this.recordedBlobs[0]
         : new window.Blob(this.recordedBlobs, {
-          type: 'video/mp4'
+          type: 'video/mp4;codecs=h264'
         })
 
     const thumbnailBlob = this.thumbnail
