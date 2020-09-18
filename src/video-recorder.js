@@ -305,15 +305,16 @@ export default class VideoRecorder extends Component {
   }
 
   getMimeType = () => {
-    if (this.props.mimeType) {
-      return this.props.mimeType
-    }
+    // if (this.props.mimeType) {
+    //   return this.props.mimeType
+    // }
+    //
+    // const mimeType = window.MediaRecorder.isTypeSupported
+    //   ? MIME_TYPES.find(window.MediaRecorder.isTypeSupported)
+    //   : 'video/webm'
 
-    const mimeType = window.MediaRecorder.isTypeSupported
-      ? MIME_TYPES.find(window.MediaRecorder.isTypeSupported)
-      : 'video/webm'
-
-    return mimeType || ''
+    // return mimeType || ''
+    return 'video/mp4'
   }
 
   isDataHealthOK = event => {
