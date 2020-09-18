@@ -305,16 +305,15 @@ export default class VideoRecorder extends Component {
   }
 
   getMimeType = () => {
-    // if (this.props.mimeType) {
-    //   return this.props.mimeType
-    // }
-    //
-    // const mimeType = window.MediaRecorder.isTypeSupported
-    //   ? MIME_TYPES.find(window.MediaRecorder.isTypeSupported)
-    //   : 'video/webm'
+    if (this.props.mimeType) {
+      return this.props.mimeType
+    }
 
-    // return mimeType || ''
-    return 'video/mp4'
+    const mimeType = window.MediaRecorder.isTypeSupported
+      ? MIME_TYPES.find(window.MediaRecorder.isTypeSupported)
+      : 'video/webm'
+
+    return mimeType || ''
   }
 
   isDataHealthOK = event => {
@@ -329,7 +328,7 @@ export default class VideoRecorder extends Component {
     const blobCount = this.recordedBlobs.length
     if (blobCount > dataCheckInterval && blobCount % dataCheckInterval === 0) {
       const blob = new window.Blob(this.recordedBlobs, {
-        type: this.getMimeType()
+        type: 'video/mp4'
       })
       if (blob.size <= 0) return this.handleDataIssue(event)
     }
@@ -492,7 +491,7 @@ export default class VideoRecorder extends Component {
       this.recordedBlobs.length === 1
         ? this.recordedBlobs[0]
         : new window.Blob(this.recordedBlobs, {
-          type: this.getMimeType()
+          type: 'video/mp4'
         })
 
     const thumbnailBlob = this.thumbnail
