@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
+import { Decoder, tools, Reader } from 'ts-ebml'
 
 import UnsupportedView from './defaults/unsupported-view'
 import ErrorView from './defaults/error-view'
@@ -60,12 +61,12 @@ const Video = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  ${props =>
+  ${(props) =>
     props.isFlipped &&
     css`
       transform: translate(-50%, -50%) scaleX(-1);
     `};
-  ${props =>
+  ${(props) =>
     props.onClick &&
     css`
       cursor: pointer;
@@ -216,16 +217,14 @@ export default class VideoRecorder extends Component {
 
     navigator.mediaDevices
       .getUserMedia(this.props.constraints)
-      .catch(err => {
+      .catch((err) => {
         // there's a bug in chrome in some windows computers where using `ideal` in the constraints throws a NotReadableError
         if (
           err.name === 'NotReadableError' ||
           err.name === 'OverconstrainedError'
         ) {
           console.warn(
-            `Got ${
-              err.name
-            }, trying getUserMedia again with fallback constraints`
+            `Got ${err.name}, trying getUserMedia again with fallback constraints`
           )
           return navigator.mediaDevices.getUserMedia(fallbackContraints)
         }
@@ -240,14 +239,14 @@ export default class VideoRecorder extends Component {
       this.props.onTurnOffCamera()
     }
 
-    this.stream && this.stream.getTracks().forEach(stream => stream.stop())
+    this.stream && this.stream.getTracks().forEach((stream) => stream.stop())
     this.setState({
       isCameraOn: false
     })
     clearInterval(this.inactivityTimer)
   }
 
-  handleSuccess = stream => {
+  handleSuccess = (stream) => {
     this.stream = stream
     this.setState({
       isCameraOn: true,
@@ -274,7 +273,7 @@ export default class VideoRecorder extends Component {
     }, 200)
   }
 
-  handleError = err => {
+  handleError = (err) => {
     const { onError } = this.props
 
     console.error('Captured error', err)
@@ -297,7 +296,7 @@ export default class VideoRecorder extends Component {
     }
   }
 
-  handleDataIssue = event => {
+  handleDataIssue = (event) => {
     const error = new ReactVideoRecorderDataIssueError(event)
     console.error(error.message, event)
     this.handleError(error)
@@ -316,7 +315,7 @@ export default class VideoRecorder extends Component {
     return mimeType || ''
   }
 
-  isDataHealthOK = event => {
+  isDataHealthOK = (event) => {
     if (!event.data) return this.handleDataIssue(event)
 
     const { chunkSize } = this.props
@@ -355,17 +354,17 @@ export default class VideoRecorder extends Component {
           video.loop = false
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn('Could not autoplay replay video', err)
         video.muted = true
         return video.play()
       })
-      .catch(err => {
+      .catch((err) => {
         console.warn('Could play muted replay video after failed autoplay', err)
       })
   }
 
-  handleDataAvailable = event => {
+  handleDataAvailable = (event) => {
     if (this.isDataHealthOK(event)) {
       this.recordedBlobs.push(event.data)
     }
@@ -424,7 +423,7 @@ export default class VideoRecorder extends Component {
   }
 
   startRecording = () => {
-    captureThumb(this.cameraVideo).then(thumbnail => {
+    captureThumb(this.cameraVideo).then((thumbnail) => {
       this.thumbnail = thumbnail
 
       this.recordedBlobs = []
@@ -475,7 +474,7 @@ export default class VideoRecorder extends Component {
     })
   }
 
-  handleStop = event => {
+  handleStop = (event) => {
     const endedAt = new Date().getTime()
 
     if (!this.recordedBlobs || this.recordedBlobs.length <= 0) {
@@ -501,25 +500,55 @@ export default class VideoRecorder extends Component {
     // if this gets executed too soon, the last chunk of data is lost on FF
     this.mediaRecorder.ondataavailable = null
 
-    this.setState({
-      isRecording: false,
-      isReplayingVideo: true,
-      isReplayVideoMuted: true,
-      videoBlob,
-      videoUrl: window.URL.createObjectURL(videoBlob)
+    this.fixVideoMetadata(videoBlob).then((fixedVideoBlob) => {
+      this.setState({
+        isRecording: false,
+        isReplayingVideo: true,
+        isReplayVideoMuted: true,
+        fixedVideoBlob,
+        videoUrl: window.URL.createObjectURL(fixedVideoBlob)
+      })
+
+      this.turnOffCamera()
+
+      this.props.onRecordingComplete(
+        fixedVideoBlob,
+        startedAt,
+        thumbnailBlob,
+        duration
+      )
     })
-
-    this.turnOffCamera()
-
-    this.props.onRecordingComplete(
-      videoBlob,
-      startedAt,
-      thumbnailBlob,
-      duration
-    )
   }
 
-  handleVideoSelected = e => {
+  // see https://bugs.chromium.org/p/chromium/issues/detail?id=642012
+  fixVideoMetadata = (rawVideoBlob) => {
+    return rawVideoBlob.arrayBuffer().then((buffer) => {
+      const decoder = new Decoder()
+      const elements = decoder.decode(buffer)
+
+      const reader = new Reader()
+      reader.logging = false
+      reader.drop_default_duration = false
+      elements.forEach((element) => reader.read(element))
+      reader.stop()
+
+      const seekableMetadata = tools.makeMetadataSeekable(
+        reader.metadatas,
+        reader.duration,
+        reader.cues
+      )
+
+      const blobBody = buffer.slice(reader.metadataSize)
+
+      const result = new Blob([seekableMetadata, blobBody], {
+        type: rawVideoBlob.type
+      })
+
+      return result
+    })
+  }
+
+  handleVideoSelected = (e) => {
     if (this.state.isReplayingVideo) {
       this.setState({
         isReplayingVideo: false
@@ -554,7 +583,7 @@ export default class VideoRecorder extends Component {
           extension
         )
       })
-      .catch(err => {
+      .catch((err) => {
         this.handleError(err)
       })
   }
@@ -601,13 +630,6 @@ export default class VideoRecorder extends Component {
     }
   }
 
-  // fixes bug where seeking control is not available until the video is almost completely played through
-  handleDurationChange = () => {
-    if (this.props.showReplayControls) {
-      this.replayVideo.currentTime = 1000000
-    }
-  }
-
   renderCameraView () {
     const {
       showReplayControls,
@@ -650,7 +672,7 @@ export default class VideoRecorder extends Component {
       return (
         <CameraView key='replay'>
           <Video
-            ref={el => (this.replayVideo = el)}
+            ref={(el) => (this.replayVideo = el)}
             src={this.state.videoUrl}
             loop
             muted={isReplayVideoMuted}
@@ -682,7 +704,7 @@ export default class VideoRecorder extends Component {
         <CameraView key='camera'>
           <Video
             isFlipped={this.props.isFlipped}
-            ref={el => (this.cameraVideo = el)}
+            ref={(el) => (this.cameraVideo = el)}
             autoPlay
             muted
           />
