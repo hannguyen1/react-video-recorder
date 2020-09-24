@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/video-recorder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+            <state relative-caret-position="278">
+              <caret line="664" column="41" selection-start-line="664" selection-start-column="35" selection-end-line="664" selection-end-column="41" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -32,7 +32,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getMimeType</find>
       <find>blob</find>
       <find>Blob</find>
       <find>thumb</find>
@@ -40,8 +39,11 @@
       <find>chunkSize</find>
       <find>renderCameraView</find>
       <find>mp4</find>
-      <find>mimeType</find>
       <find>type</find>
+      <find>getMimeType</find>
+      <find>getM</find>
+      <find>mimeType</find>
+      <find>define</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -135,12 +137,12 @@
       <workItem from="1600411183959" duration="2034000" />
       <workItem from="1600444488282" duration="104000" />
       <workItem from="1600452921610" duration="410000" />
-      <workItem from="1600881529771" duration="2067000" />
+      <workItem from="1600881529771" duration="2960000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4615000" />
+    <option name="totallyTimeSpent" value="5508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -172,8 +174,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/video-recorder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="498" lean-forward="true" selection-start-line="498" selection-end-line="498" />
+        <state relative-caret-position="278">
+          <caret line="664" column="41" selection-start-line="664" selection-start-column="35" selection-end-line="664" selection-end-column="41" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
