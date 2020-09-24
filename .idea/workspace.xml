@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/video-recorder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="497" column="34" lean-forward="true" selection-start-line="497" selection-start-column="34" selection-end-line="497" selection-end-column="34" />
+            <state relative-caret-position="280">
+              <caret line="495" column="32" lean-forward="true" selection-start-line="495" selection-start-column="32" selection-end-line="495" selection-end-column="32" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -32,13 +32,15 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mimeType</find>
       <find>getMimeType</find>
       <find>type</find>
       <find>blob</find>
       <find>Blob</find>
       <find>thumb</find>
       <find>startedAt</find>
+      <find>chunkSize</find>
+      <find>renderCameraView</find>
+      <find>mimeType</find>
       <find>mp4</find>
     </findStrings>
   </component>
@@ -132,12 +134,13 @@
       <updated>1600411182684</updated>
       <workItem from="1600411183959" duration="2034000" />
       <workItem from="1600444488282" duration="104000" />
-      <workItem from="1600452921610" duration="60000" />
+      <workItem from="1600452921610" duration="410000" />
+      <workItem from="1600881529771" duration="1361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2198000" />
+    <option name="totallyTimeSpent" value="3909000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -169,8 +172,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/video-recorder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="497" column="34" lean-forward="true" selection-start-line="497" selection-start-column="34" selection-end-line="497" selection-end-column="34" />
+        <state relative-caret-position="280">
+          <caret line="495" column="32" lean-forward="true" selection-start-line="495" selection-start-column="32" selection-end-line="495" selection-end-column="32" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
