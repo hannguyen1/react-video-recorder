@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e12a393e-eb0f-4179-83a1-ce1f5125bd08" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/video-recorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/video-recorder.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/video-recorder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="492" column="38" selection-start-line="492" selection-start-column="38" selection-end-line="492" selection-end-column="38" />
+            <state relative-caret-position="250">
+              <caret line="330" selection-start-line="330" selection-end-line="330" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -38,13 +37,13 @@
       <find>startedAt</find>
       <find>chunkSize</find>
       <find>renderCameraView</find>
-      <find>mp4</find>
       <find>type</find>
       <find>getMimeType</find>
       <find>getM</find>
       <find>define</find>
       <find>mimeType</find>
       <find>codec</find>
+      <find>mp4</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -138,12 +137,12 @@
       <workItem from="1600411183959" duration="2034000" />
       <workItem from="1600444488282" duration="104000" />
       <workItem from="1600452921610" duration="410000" />
-      <workItem from="1600881529771" duration="4094000" />
+      <workItem from="1600881529771" duration="4519000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6642000" />
+    <option name="totallyTimeSpent" value="7067000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -218,8 +217,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/video-recorder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="492" column="38" selection-start-line="492" selection-start-column="38" selection-end-line="492" selection-end-column="38" />
+        <state relative-caret-position="250">
+          <caret line="330" selection-start-line="330" selection-end-line="330" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
